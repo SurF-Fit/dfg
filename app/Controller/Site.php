@@ -8,7 +8,7 @@ use Src\View;
 use Model\User;
 use Model\Phone;
 use Model\Room;
-use Model\Subscribers;
+use Model\Subscriber;
 use Model\Subdivision;
 use Src\Auth\Auth;
 
@@ -99,12 +99,31 @@ class Site
         ]);
     }
 
+    public function attachPhone(Request $request): string
+    {
+
+        $subscribers = Subscriber::select('id', 'Surname', 'Name', 'SurnameSecond')->get();
+        $phones = Phone::whereNull('subscriber')->select('id', 'number_phone')->get();
+
+        if ($request->method === 'POST') {
+            Phone::where('id', $request->phone_id)
+                ->update(['subscriber' => $request->subscriber_id]);
+
+            return app()->route->redirect('/hello');
+        }
+
+        return new View('site.attachPhone', [
+            'subscribers' => $subscribers,
+            'numberPhones' => $phones,
+        ]);
+    }
+
     public function createSubscribers(Request $request): string
     {
         $subdivisions = Subdivision::select('id', 'name')->get();
 
         if ($request->method === 'POST') {
-            Subscribers::create([
+            Subscriber::create([
                 'Surname' => $request->Surname,
                 'Name' => $request->Name,
                 'SurnameSecond' => $request->SurnameSecond,

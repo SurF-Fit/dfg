@@ -5,8 +5,7 @@ namespace Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class Subscribers extends Model
+class Subscriber extends Model
 {
     use HasFactory;
 
@@ -22,5 +21,10 @@ class Subscribers extends Model
     public function subdivision()
     {
         return $this->belongsTo(Subdivision::class, 'subdivision', 'id');
+    }
+
+    public function phone()
+    {
+        return $this->hasMany(Phone::class, 'subscriber_id', 'id');
     }
 }

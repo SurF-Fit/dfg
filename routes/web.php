@@ -12,6 +12,9 @@ Route::add(['GET', 'POST'], '/createPhone', [Controller\Site::class, 'createPhon
 Route::add(['GET', 'POST'], '/createRoom', [Controller\Site::class, 'createRoom']);
 Route::add(['GET', 'POST'], '/createSubdivision', [Controller\Site::class, 'createSubdivision']);
 Route::add(['GET', 'POST'], '/createSubscribers', [Controller\Site::class, 'createSubscribers']);
+Route::add(['GET', 'POST'], '/attachPhone', [Controller\Site::class, 'attachPhone']);
+
+
 
 
 
