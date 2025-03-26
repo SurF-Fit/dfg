@@ -22,6 +22,30 @@ class Site
         return new View('site.hello', ['message' => 'hello working']);
     }
 
+    public function addsis(Request $request): string
+    {
+        if ($request->method === 'POST') {
+            $data = $request->all();
+            if (isset($data['user_id'])) {
+                $user = User::find($data['user_id']);
+
+                if ($user) {
+                    if (isset($data['make_admin'])) {
+                        $user->role = 1;
+                    } elseif (isset($data['make_sysadmin'])) {
+                        $user->role = 2;
+                    } else {
+                        $user->role = 0;
+                    }
+                    $user->save();
+                }
+            }
+        }
+
+        $users = User::all();
+        return new View('site.addsis', ['users' => $users]);
+    }
+
     public function signup(Request $request): string
     {
         if ($request->method === 'POST' && User::create($request->all())) {

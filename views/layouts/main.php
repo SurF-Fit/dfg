@@ -36,7 +36,7 @@
             if(isset(app()->auth::user()->role)):
                 if (app()->auth::user()->role == 1):
                     ?>
-                    <a href="">добавить сиса</a>
+                    <a href="<?= app()->route->getUrl('/addsis') ?>">добавить сиса</a>
                 <?php
                 endif;
                 ?>

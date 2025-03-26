@@ -60,7 +60,7 @@ main {
     gap: 10px;
 }
 
-main form {
+main form:not(.sis form) {
     padding: 20px;
     border: 2px solid black;
     display: flex;
@@ -70,12 +70,12 @@ main form {
     box-shadow:  10px 10px 20px black;
 }
 
-main form > label {
+main form:not(.sis form) > label {
     display: flex;
     gap: 20px;
 }
 
-main form > label input {
+main form:not(.sis form) > label input {
     background: none;
     border: none;
     border-bottom: 2px solid black;
@@ -92,4 +92,28 @@ main form button {
 main form button:hover {
 
     background-color: #908cff;
+}
+
+.sis {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sis form {
+    display: flex;
+    gap: 20px;
+}
+
+.sis form li {
+    width: 100px;
+}
+
+.sis > form > span {
+    width: 210px;
+}
+
+.sis > form > label {
+    display: flex;
+    flex-direction: column;
 }
