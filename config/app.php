@@ -6,5 +6,7 @@ return [
     'identity'=>\Model\User::class,
     'routeMiddleware' => [
     'auth' => \Middlewares\AuthMiddleware::class,
-    ]
+    ],
+    'identityPhone'=>\Model\Phone::class,
+    'identityRoom'=>\Model\Room::class,
 ];

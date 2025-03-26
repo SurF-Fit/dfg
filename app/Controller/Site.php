@@ -6,6 +6,8 @@ use Src\Request;
 use Model\Post;
 use Src\View;
 use Model\User;
+use Model\Phone;
+use Model\Room;
 use Src\Auth\Auth;
 
 
@@ -56,6 +58,35 @@ class Site
             app()->route->redirect('/hello');
         }
         return new View('site.signup');
+    }
+
+    public function createPhone(Request $request): string
+    {
+        if ($request->method === 'GET') {
+            new View('site.createPhone');
+        }
+
+        if ($request->method === 'POST' ) {
+            $phone = Phone::create(['number_phone' => $request->number_phone]);
+            app()->route->redirect('/hello');
+        }
+        return new View('site.createPhone');
+    }
+
+    public function createRoom(Request $request): string
+    {
+        if ($request->method === 'GET') {
+            new View('site.createRoom');
+        }
+
+        if ($request->method === 'POST' ) {
+            $phone = Room::create([
+                'Name' => $request->Name,
+                'Type of room' => $request->Type_of_room
+                ]);
+            app()->route->redirect('/hello');
+        }
+        return new View('site.createRoom');
     }
 
     public function login(Request $request): string
