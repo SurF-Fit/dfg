@@ -8,8 +8,11 @@ use Src\View;
 use Model\User;
 use Model\Phone;
 use Model\Room;
+use Model\Subscribers;
 use Model\Subdivision;
 use Src\Auth\Auth;
+
+
 
 
 class Site
@@ -63,15 +66,19 @@ class Site
 
     public function createPhone(Request $request): string
     {
-        if ($request->method === 'GET') {
-            new View('site.createPhone');
+        $rooms = Room::select('id', 'name')->get();
+
+        if ($request->method === 'POST') {
+            Phone::create([
+                'number_phone' => $request->number_phone,
+                'room' => $request->room_id
+            ]);
+            return app()->route->redirect('/hello');
         }
 
-        if ($request->method === 'POST' ) {
-            $phone = Phone::create(['number_phone' => $request->number_phone]);
-            app()->route->redirect('/hello');
-        }
-        return new View('site.createPhone');
+        return new View('site.createPhone', [
+            'rooms' => $rooms
+        ]);
     }
 
     public function createRoom(Request $request): string
@@ -88,6 +95,26 @@ class Site
         }
 
         return new View('site.createRoom', [
+            'subdivisions' => $subdivisions
+        ]);
+    }
+
+    public function createSubscribers(Request $request): string
+    {
+        $subdivisions = Subdivision::select('id', 'name')->get();
+
+        if ($request->method === 'POST') {
+            Subscribers::create([
+                'Surname' => $request->Surname,
+                'Name' => $request->Name,
+                'SurnameSecond' => $request->SurnameSecond,
+                'Date_of_birth' => $request->Date_of_birth,
+                'subdivision' => $request->subdivision_id,
+            ]);
+            app()->route->redirect('/hello');
+        }
+
+        return new View('site.createSubscribers', [
             'subdivisions' => $subdivisions
         ]);
     }

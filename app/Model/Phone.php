@@ -13,6 +13,11 @@ class Phone extends Model
     public $timestamps = false;
     protected $fillable = [
         'number_phone',
+        'room'
     ];
 
+    public function room()
+    {
+        return $this->belongsTo(room::class, 'room', 'id');
+    }
 }
