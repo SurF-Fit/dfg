@@ -4,9 +4,39 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
 header {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    height: 50vh;
+    height: 60vh;
+    background-image: url("../img/back.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header > nav {
+    background-color: white;
+    width: 60%;
+    height: max-content;
+    margin-top: 30px;
+}
+
+header > nav > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+header > nav > div:first-of-type > div {
+    display: flex;
+    gap: 30px;
 }
 
 a {
@@ -14,6 +44,52 @@ a {
     text-decoration: none;
 }
 
+header > nav > div:first-of-type > a:first-of-type{
+    font-size: 30pt;
+}
+
 a:hover {
     text-decoration: underline;
+    color: #000897;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+main form {
+    padding: 20px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 20px;
+    box-shadow:  10px 10px 20px black;
+}
+
+main form > label {
+    display: flex;
+    gap: 20px;
+}
+
+main form > label input {
+    background: none;
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+}
+
+main form button {
+    border: 1px solid black;
+    background: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+main form button:hover {
+
+    background-color: #908cff;
 }

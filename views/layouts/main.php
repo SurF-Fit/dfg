@@ -6,24 +6,53 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/index.css">
-    <title>Pop it MVC</title>
+    <title>CallHub  </title>
 </head>
 <body>
 <header>
     <nav>
-        <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
-        <?php
-        if (!app()->auth::check()):
+        <div>
+            <a href="<?= app()->route->getUrl('/hello') ?>">CallHub</a>
+            <div>
+                <a href="tel:+79738895257">89738895257</a>
+                <a href="tel:+79739894257">89739894257</a>
+                <?php
+                if (!app()->auth::check()):
+                    ?>
+                    <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
+                    <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
+                <?php
+                else:
+                    ?>
+                    <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
+                <?php
+                endif;
+                ?>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <?php
+            if(isset(app()->auth::user()->role)):
+                if (app()->auth::user()->role == 1):
+                    ?>
+                    <a href="">добавить сиса</a>
+                <?php
+                endif;
+                ?>
+                <?php
+                if (app()->auth::user()->role == 2):
+                    ?>
+                    <a href="">добавить</a>
+                <?php
+                endif;
+            else:
             ?>
-            <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
-            <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
-        <?php
-        else:
+                <p>Сначала пройди регистрацию\авторизацию и дождитесь одобрения администратора</p>
+            <?php
+            endif;
             ?>
-            <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
-        <?php
-        endif;
-        ?>
+        </div>
     </nav>
 </header>
 <main>
