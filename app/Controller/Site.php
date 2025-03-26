@@ -8,6 +8,7 @@ use Src\View;
 use Model\User;
 use Model\Phone;
 use Model\Room;
+use Model\Subdivision;
 use Src\Auth\Auth;
 
 
@@ -75,18 +76,36 @@ class Site
 
     public function createRoom(Request $request): string
     {
+        $subdivisions = Subdivision::select('id', 'name')->get();
+
+        if ($request->method === 'POST') {
+            Room::create([
+                'name' => $request->name,
+                'Type of room' => $request->Type_of_room,
+                'subdivision' => $request->subdivision_id
+            ]);
+            return app()->route->redirect('/hello');
+        }
+
+        return new View('site.createRoom', [
+            'subdivisions' => $subdivisions
+        ]);
+    }
+
+    public function createSubdivision(Request $request): string
+    {
         if ($request->method === 'GET') {
-            new View('site.createRoom');
+            new View('site.createSubdivision');
         }
 
         if ($request->method === 'POST' ) {
-            $phone = Room::create([
+            $subdivision = Subdivision::create([
                 'Name' => $request->Name,
-                'Type of room' => $request->Type_of_room
-                ]);
+                'type_of_unit' => $request->type_of_unit,
+            ]);
             app()->route->redirect('/hello');
         }
-        return new View('site.createRoom');
+        return new View('site.createSubdivision');
     }
 
     public function login(Request $request): string

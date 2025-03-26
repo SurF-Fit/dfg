@@ -49,7 +49,7 @@
                             <div class="dropdown-menu">
                                 <a href="<?= app()->route->getUrl('/addsubscriber') ?>">Добавить абонента</a>
                                 <a href="<?= app()->route->getUrl('/createRoom') ?>">Добавить помещение</a>
-                                <a href="<?= app()->route->getUrl('/adddepartment') ?>">Добавить подразделение</a>
+                                <a href="<?= app()->route->getUrl('/createSubdivision') ?>">Добавить подразделение</a>
                                 <a href="<?= app()->route->getUrl('/createPhone') ?>">Добавить телефон</a>
                                 <a href="<?= app()->route->getUrl('/assignphone') ?>">Прикрепить абонента к номеру</a>
                             </div>

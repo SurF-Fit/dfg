@@ -10,4 +10,5 @@ Route::add('GET', '/logout', [Controller\Site::class, 'logout']);
 Route::add(['GET', 'POST'], '/addsis', [Controller\Site::class, 'addsis']);
 Route::add(['GET', 'POST'], '/createPhone', [Controller\Site::class, 'createPhone']);
 Route::add(['GET', 'POST'], '/createRoom', [Controller\Site::class, 'createRoom']);
+Route::add(['GET', 'POST'], '/createSubdivision', [Controller\Site::class, 'createSubdivision']);
 

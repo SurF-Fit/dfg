@@ -5,19 +5,15 @@ namespace Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+
+class Subdivision extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
     protected $fillable = [
         'Name',
-        'Type_of_room',
-        'subdivision'
+        'type_of_unit',
     ];
 
-    public function subdivision()
-    {
-        return $this->belongsTo(Subdivision::class, 'subdivision', 'id');
-    }
 }

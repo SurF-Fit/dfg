@@ -9,4 +9,5 @@ return [
     ],
     'identityPhone'=>\Model\Phone::class,
     'identityRoom'=>\Model\Room::class,
+    'identitySubdivision'=>\Model\Subdivision::class,
 ];
