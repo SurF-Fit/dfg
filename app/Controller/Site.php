@@ -19,23 +19,27 @@ class Site
 
     public function hello(): string
     {
-        return new View('site.hello', ['message' => 'hello working']);
+        return new View('site.hello', ['message' => 'Давай работать!!!']);
     }
 
     public function addsis(Request $request): string
     {
         if ($request->method === 'POST') {
             $data = $request->all();
-            if (isset($data['user_id'])) {
+            if (isset($data['user_id']) && isset($data['role'])) {
                 $user = User::find($data['user_id']);
 
                 if ($user) {
-                    if (isset($data['make_admin'])) {
-                        $user->role = 1;
-                    } elseif (isset($data['make_sysadmin'])) {
-                        $user->role = 2;
-                    } else {
-                        $user->role = 0;
+                    switch ($data['role']) {
+                        case 'make_admin':
+                            $user->role = 1;
+                            break;
+                        case 'make_sysadmin':
+                            $user->role = 2;
+                            break;
+                        case 'make_user':
+                            $user->role = 0;
+                            break;
                     }
                     $user->save();
                 }

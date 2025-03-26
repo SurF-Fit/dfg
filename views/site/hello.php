@@ -9,5 +9,6 @@
 </head>
 <body>
     <h2><?= $message ?? ''; ?></h2>
+    <img class="utya" src="../img/utya-utya-duck.gif" alt="utya">
 </body>
 </html>

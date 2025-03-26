@@ -15,8 +15,10 @@
             echo '<span>(системный администратор)</span>';
         endif;
 
-        echo '<label><input type="checkbox" name="make_admin" value="1"' . ($user->role === 1 ? ' checked' : '') . '> Админ</label>';
-        echo '<label><input type="checkbox" name="make_sysadmin" value="1"' . ($user->role === 2 ? ' checked' : '') . '> Системный админ</label>';
+
+        echo '<label><input type="radio" name="role" value="make_admin"' . ($user->role === 1 ? ' checked' : '') . '> Админ</label>';
+        echo '<label><input type="radio" name="role" value="make_sysadmin"' . ($user->role === 2 ? ' checked' : '') . '> Системный админ</label>';
+        echo '<label><input type="radio" name="role" value="make_user"' . ($user->role === 0 ? ' checked' : '') . '> Пользователь</label>';
 
         echo '<button type="submit">Применить</button>';
         echo '</form>';

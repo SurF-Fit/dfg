@@ -43,7 +43,21 @@
                 <?php
                 if (app()->auth::user()->role == 2):
                     ?>
-                    <a href="">добавить</a>
+                    <div class="desktop-menu">
+                        <div class="add-button">
+                            Добавить ▼
+                            <div class="dropdown-menu">
+                                <a href="<?= app()->route->getUrl('/addsubscriber') ?>">Добавить абонента</a>
+                                <a href="<?= app()->route->getUrl('/addroom') ?>">Добавить помещение</a>
+                                <a href="<?= app()->route->getUrl('/adddepartment') ?>">Добавить подразделение</a>
+                                <a href="<?= app()->route->getUrl('/addphone') ?>">Добавить телефон</a>
+                                <a href="<?= app()->route->getUrl('/assignphone') ?>">Прикрепить абонента к номеру</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="">выбрать номера абонента по подразделениям</a>
+                    <a href="">выбрать все номера абонента</a>
+                    <a href="">подсчитать количество абонентов</a>
                 <?php
                 endif;
             else:
