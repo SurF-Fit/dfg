@@ -20,4 +20,9 @@ class Room extends Model
     {
         return $this->belongsTo(Subdivision::class, 'subdivision', 'id');
     }
+
+    public function phones()
+    {
+        return $this->hasMany(Phone::class, 'room', 'id');
+    }
 }

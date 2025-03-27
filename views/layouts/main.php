@@ -62,8 +62,8 @@
                             подсчитать количество абонентов ▼
                             <div class="dropdown-menu">
                                 <a href="<?= app()->route->getUrl('/selectsubscriber') ?>">Общее количество</a>
-                                <a href="<?= app()->route->getUrl('/selectsubscriber') ?>">По подразделениям</a>
-                                <a href="<?= app()->route->getUrl('/selectsubscriber') ?>">По помещениям</a>
+                                <a href="<?= app()->route->getUrl('/selectsubscriberbysubdivisions') ?>">По подразделениям</a>
+                                <a href="<?= app()->route->getUrl('/subscribersByRoom') ?>">По помещениям</a>
                             </div>
                         </div>
                     </div>

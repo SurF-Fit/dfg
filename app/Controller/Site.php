@@ -87,8 +87,8 @@ class Site
 
         if ($request->method === 'POST') {
             Room::create([
-                'name' => $request->name,
-                'Type of room' => $request->Type_of_room,
+                'Name' => $request->name,
+                'Type_of_room' => $request->Type_of_room,
                 'subdivision' => $request->subdivision_id
             ]);
             return app()->route->redirect('/hello');
@@ -127,6 +127,20 @@ class Site
         ]);
     }
 
+    public function subscribersByRoom(Request $request): string
+    {
+        // Получаем все помещения с телефонами и абонентами
+        $rooms = Room::with(['phones.subscriber'])->get();
+
+        // Получаем всех абонентов для дополнительной информации
+        $subscribers = Subscriber::all();
+
+        return new View('site.subscribersByRoom', [
+            'rooms' => $rooms,
+            'subscribers' => $subscribers
+        ]);
+    }
+
     public function phonesBySubdivision(Request $request): string
     {
         $subscribers = Subscriber::with('phones')->get();
@@ -146,6 +160,19 @@ class Site
 
         return new View('site.selectsubscriber', [
             'subscribers' => $subscribers,
+        ]);
+    }
+
+    public function selectsubscriberbysubdivisions(Request $request): string
+    {
+
+        $subscribers = Subscriber::all();
+
+        $subdivisions = Subdivision::with('subscribers')->get();
+
+        return new View('site.selectsubscriberbysubdivisions', [
+            'subdivisions' => $subdivisions,
+            'subscribers' => $subscribers
         ]);
     }
 

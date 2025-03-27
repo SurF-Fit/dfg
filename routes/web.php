@@ -16,6 +16,10 @@ Route::add(['GET', 'POST'], '/attachPhone', [Controller\Site::class, 'attachPhon
 Route::add(['GET', 'POST'], '/phonesBySubdivision', [Controller\Site::class, 'phonesBySubdivision']);
 Route::add(['GET', 'POST'], '/selectPhone', [Controller\Site::class, 'selectPhone']);
 Route::add(['GET', 'POST'], '/selectsubscriber', [Controller\Site::class, 'selectsubscriber']);
+Route::add(['GET', 'POST'], '/selectsubscriberbysubdivisions', [Controller\Site::class, 'selectsubscriberbysubdivisions']);
+Route::add(['GET', 'POST'], '/subscribersByRoom', [Controller\Site::class, 'subscribersByRoom']);
+
+
 
 
 

@@ -1,4 +1,4 @@
-<h1>Список абонентов (Всего абонентов <?= count($subscribers) ?>)</h1>
+<h1>Список абонентов (Абонентов <?= count($subscribers) ?> чел.)</h1>
 <ol>
     <?php foreach ($subscribers as $sub): ?>
         <li>
