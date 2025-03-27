@@ -120,13 +120,10 @@ class Site
 
     public function selectPhone(Request $request): string
     {
-
-        $subscribers = Subscriber::select('id', 'Surname', 'Name', 'SurnameSecond')->get();
-        $phones = Phone::select('id', 'number_phone')->get();
+        $subscribers = Subscriber::with('phones')->get();
 
         return new View('site.selectPhone', [
-            'subscribers' => $subscribers,
-            'numberPhones' => $phones,
+            'subscribers' => $subscribers
         ]);
     }
 
@@ -135,7 +132,7 @@ class Site
 
         $subscribers = Subscriber::all();
 
-        return new View('site.selectPhone', [
+        return new View('site.selectsubscriber', [
             'subscribers' => $subscribers,
         ]);
     }

@@ -12,14 +12,14 @@ class Phone extends Model
     public $timestamps = false;
     protected $fillable = [
         'number_phone',
-        'subscriber_id', // меняем room на subscriber_id
-        'room' // оставляем, если нужно сохранять привязку к комнате
+        'subscriber ',
+        'room'
     ];
 
     // Связь с абонентом
     public function subscriber()
     {
-        return $this->belongsTo(Subscriber::class, 'subscriber_id', 'id');
+        return $this->belongsTo(Subscriber::class, 'subscriber', 'id');
     }
 
     // Связь с комнатой (если нужно сохранить)

@@ -10,7 +10,6 @@
             <?php endforeach; ?>
         </select>
     </label>
-
     <label>Абонент:
         <select name="subscriber_id" required>
             <option value="">Выберите абонента</option>

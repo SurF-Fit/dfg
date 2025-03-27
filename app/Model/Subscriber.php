@@ -23,8 +23,8 @@ class Subscriber extends Model
         return $this->belongsTo(Subdivision::class, 'subdivision', 'id');
     }
 
-    public function phone()
+    public function phones()
     {
-        return $this->hasMany(Phone::class, 'subscriber_id', 'id');
+        return $this->hasMany(Phone::class, 'subscriber', 'id');
     }
 }
