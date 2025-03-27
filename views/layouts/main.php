@@ -57,7 +57,16 @@
                     </div>
                     <a href="<?= app()->route->getUrl('/phonesBySubdivision') ?>">выбрать номера абонента по подразделениям</a>
                     <a href="<?= app()->route->getUrl('/selectPhone') ?>">выбрать все номера абонента</a>
-                    <a href="<?= app()->route->getUrl('/selectsubscriber') ?>">подсчитать количество абонентов</a>
+                    <div class="desktop-menu">
+                        <div class="add-button">
+                            подсчитать количество абонентов ▼
+                            <div class="dropdown-menu">
+                                <a href="<?= app()->route->getUrl('/selectsubscriber') ?>">Общее количество</a>
+                                <a href="<?= app()->route->getUrl('/selectsubscriber') ?>">По подразделениям</a>
+                                <a href="<?= app()->route->getUrl('/selectsubscriber') ?>">По помещениям</a>
+                            </div>
+                        </div>
+                    </div>
                 <?php
                 endif;
             else:

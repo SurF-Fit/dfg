@@ -127,6 +127,18 @@ class Site
         ]);
     }
 
+    public function phonesBySubdivision(Request $request): string
+    {
+        $subscribers = Subscriber::with('phones')->get();
+
+        $subdivisions = Subdivision::with('subscribers')->get();
+
+        return new View('site.phonesBySubdivision', [
+            'subdivisions' => $subdivisions,
+            'subscribers' => $subscribers
+        ]);
+    }
+
     public function selectsubscriber(Request $request): string
     {
 
@@ -134,17 +146,6 @@ class Site
 
         return new View('site.selectsubscriber', [
             'subscribers' => $subscribers,
-        ]);
-    }
-
-    public function phonesBySubdivision(Request $request): string
-    {
-        $subdivisions = Subdivision::with(['subscribers.phones'])
-            ->select('id', 'name')
-            ->get();
-
-        return new View('site.phonesBySubdivision', [
-            'subdivisions' => $subdivisions
         ]);
     }
 
