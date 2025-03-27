@@ -11,6 +11,8 @@ use Model\Room;
 use Model\Subscriber;
 use Model\Subdivision;
 use Src\Auth\Auth;
+use Helpers\HelperRequest;
+use Helpers\HelperResponse;
 
 
 
@@ -58,8 +60,17 @@ class Site
 
     public function signup(Request $request): string
     {
-        if ($request->method === 'POST' && User::create($request->all())) {
-            app()->route->redirect('/hello');
+        if ($request->method === 'POST') {
+            $errors = \Helpers\HelperRequest::validateSignup($request->all());
+
+            if (empty($errors)) {
+                if (User::create($request->all())) {
+                    app()->route->redirect('/hello');
+                    return '';
+                }
+                return new View('site.signup', ['message' => 'Ошибка при создании пользователя']);
+            }
+            return new View('site.signup', ['message' => \Helpers\HelperResponse::validationErrors($errors)]);
         }
         return new View('site.signup');
     }

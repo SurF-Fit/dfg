@@ -1,6 +1,12 @@
 <h2>Создание абонента</h2>
+<?php if (!empty($errors)): ?>
+    <div style="color: red; margin-bottom: 15px;">
+        <?= validationErrors($errors) ?>
+    </div>
+<?php endif; ?>
+
 <form method="post">
-    <label>Фамилия: <input type="text" name="Surname" required></label>
+    <label>Фамилия: <input type="text" name="Surname" value="<?= $request->Surname ?? '' ?>"></label>
 
     <label>Имя: <input type="text" name="Name" required></label>
 
