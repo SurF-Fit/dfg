@@ -11,4 +11,10 @@ return [
     'identityRoom'=>\Model\Room::class,
     'identitySubdivision'=>\Model\Subdivision::class,
     'identitySubscribers'=>\Model\Subscribers::class,
+    'routeAppMiddleware' => [
+        'csrf' => \Middlewares\CSRFMiddleware::class,
+        'trim' => \Middlewares\TrimMiddleware::class,
+        'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
+    ],
+
 ];
