@@ -14,9 +14,6 @@ use Src\Auth\Auth;
 use Helpers\HelperRequest;
 use Helpers\HelperResponse;
 
-
-
-
 class Site
 {
     public function index(Request $request): string
@@ -50,6 +47,7 @@ class Site
                             break;
                     }
                     $user->save();
+                    HelperResponse::redirectWithMessage('/addsis', 'Роль пользователя изменена');
                 }
             }
         }
@@ -61,16 +59,15 @@ class Site
     public function signup(Request $request): string
     {
         if ($request->method === 'POST') {
-            $errors = \Helpers\HelperRequest::validateSignup($request->all());
+            $errors = HelperRequest::validateSignup($request->all());
 
             if (empty($errors)) {
                 if (User::create($request->all())) {
-                    app()->route->redirect('/hello');
-                    return '';
+                    HelperResponse::redirectWithMessage('/hello', 'Регистрация прошла успешно');
                 }
-                return new View('site.signup', ['message' => 'Ошибка при создании пользователя']);
+                return new View('site.signup', ['message' => HelperResponse::errorMessage('Ошибка при создании пользователя')]);
             }
-            return new View('site.signup', ['message' => \Helpers\HelperResponse::validationErrors($errors)]);
+            return new View('site.signup', ['message' => HelperResponse::validationErrors($errors)]);
         }
         return new View('site.signup');
     }
@@ -80,16 +77,22 @@ class Site
         $rooms = Room::select('id', 'name')->get();
 
         if ($request->method === 'POST') {
-            Phone::create([
-                'number_phone' => $request->number_phone,
-                'room' => $request->room_id
+            $errors = HelperRequest::validatePhone($request->all());
+
+            if (empty($errors)) {
+                Phone::create([
+                    'number_phone' => $request->number_phone,
+                    'room' => $request->room_id
+                ]);
+                HelperResponse::redirectWithMessage('/hello', 'Телефон успешно создан');
+            }
+            return new View('site.createPhone', [
+                'rooms' => $rooms,
+                'message' => HelperResponse::validationErrors($errors)
             ]);
-            return app()->route->redirect('/hello');
         }
 
-        return new View('site.createPhone', [
-            'rooms' => $rooms
-        ]);
+        return new View('site.createPhone', ['rooms' => $rooms]);
     }
 
     public function createRoom(Request $request): string
@@ -97,22 +100,27 @@ class Site
         $subdivisions = Subdivision::select('id', 'name')->get();
 
         if ($request->method === 'POST') {
-            Room::create([
-                'Name' => $request->name,
-                'Type_of_room' => $request->Type_of_room,
-                'subdivision' => $request->subdivision_id
+            $errors = HelperRequest::validateRoom($request->all());
+
+            if (empty($errors)) {
+                Room::create([
+                    'Name' => $request->name,
+                    'Type_of_room' => $request->Type_of_room,
+                    'subdivision' => $request->subdivision_id
+                ]);
+                HelperResponse::redirectWithMessage('/hello', 'Помещение успешно создано');
+            }
+            return new View('site.createRoom', [
+                'subdivisions' => $subdivisions,
+                'message' => HelperResponse::validationErrors($errors)
             ]);
-            return app()->route->redirect('/hello');
         }
 
-        return new View('site.createRoom', [
-            'subdivisions' => $subdivisions
-        ]);
+        return new View('site.createRoom', ['subdivisions' => $subdivisions]);
     }
 
     public function attachPhone(Request $request): string
     {
-
         $subscribers = Subscriber::select('id', 'Surname', 'Name', 'SurnameSecond')->get();
         $phones = Phone::whereNull('subscriber')->select('id', 'number_phone')->get();
 
@@ -120,7 +128,7 @@ class Site
             Phone::where('id', $request->phone_id)
                 ->update(['subscriber' => $request->subscriber_id]);
 
-            return app()->route->redirect('/hello');
+            HelperResponse::redirectWithMessage('/attachPhone', 'Телефон успешно привязан');
         }
 
         return new View('site.attachPhone', [
@@ -132,18 +140,12 @@ class Site
     public function selectPhone(Request $request): string
     {
         $subscribers = Subscriber::with('phones')->get();
-
-        return new View('site.selectPhone', [
-            'subscribers' => $subscribers
-        ]);
+        return new View('site.selectPhone', ['subscribers' => $subscribers]);
     }
 
     public function subscribersByRoom(Request $request): string
     {
-        // Получаем все помещения с телефонами и абонентами
         $rooms = Room::with(['phones.subscriber'])->get();
-
-        // Получаем всех абонентов для дополнительной информации
         $subscribers = Subscriber::all();
 
         return new View('site.subscribersByRoom', [
@@ -155,7 +157,6 @@ class Site
     public function phonesBySubdivision(Request $request): string
     {
         $subscribers = Subscriber::with('phones')->get();
-
         $subdivisions = Subdivision::with('subscribers')->get();
 
         return new View('site.phonesBySubdivision', [
@@ -166,19 +167,13 @@ class Site
 
     public function selectsubscriber(Request $request): string
     {
-
         $subscribers = Subscriber::all();
-
-        return new View('site.selectsubscriber', [
-            'subscribers' => $subscribers,
-        ]);
+        return new View('site.selectsubscriber', ['subscribers' => $subscribers]);
     }
 
     public function selectsubscriberbysubdivisions(Request $request): string
     {
-
         $subscribers = Subscriber::all();
-
         $subdivisions = Subdivision::with('subscribers')->get();
 
         return new View('site.selectsubscriberbysubdivisions', [
@@ -192,55 +187,68 @@ class Site
         $subdivisions = Subdivision::select('id', 'name')->get();
 
         if ($request->method === 'POST') {
-            Subscriber::create([
-                'Surname' => $request->Surname,
-                'Name' => $request->Name,
-                'SurnameSecond' => $request->SurnameSecond,
-                'Date_of_birth' => $request->Date_of_birth,
-                'subdivision' => $request->subdivision_id,
+            $errors = HelperRequest::validateSubscriber($request->all());
+
+            if (empty($errors)) {
+                Subscriber::create([
+                    'Surname' => $request->Surname,
+                    'Name' => $request->Name,
+                    'SurnameSecond' => $request->SurnameSecond,
+                    'Date_of_birth' => $request->Date_of_birth,
+                    'subdivision' => $request->subdivision_id,
+                ]);
+                HelperResponse::redirectWithMessage('/hello', 'Абонент успешно создан');
+            }
+            return new View('site.createSubscribers', [
+                'subdivisions' => $subdivisions,
+                'message' => HelperResponse::validationErrors($errors)
             ]);
-            app()->route->redirect('/hello');
         }
 
-        return new View('site.createSubscribers', [
-            'subdivisions' => $subdivisions
-        ]);
+        return new View('site.createSubscribers', ['subdivisions' => $subdivisions]);
     }
 
     public function createSubdivision(Request $request): string
     {
-        if ($request->method === 'GET') {
-            new View('site.createSubdivision');
-        }
+        if ($request->method === 'POST') {
+            $errors = HelperRequest::validateSubdivision($request->all());
 
-        if ($request->method === 'POST' ) {
-            $subdivision = Subdivision::create([
-                'Name' => $request->Name,
-                'type_of_unit' => $request->type_of_unit,
+            if (empty($errors)) {
+                Subdivision::create([
+                    'Name' => $request->Name,
+                    'type_of_unit' => $request->type_of_unit,
+                ]);
+                HelperResponse::redirectWithMessage('/hello', 'Подразделение успешно создано');
+            }
+            return new View('site.createSubdivision', [
+                'message' => HelperResponse::validationErrors($errors)
             ]);
-            app()->route->redirect('/hello');
         }
         return new View('site.createSubdivision');
     }
 
     public function login(Request $request): string
     {
-        //Если просто обращение к странице, то отобразить форму
         if ($request->method === 'GET') {
             return new View('site.login');
         }
-        //Если удалось аутентифицировать пользователя, то редирект
-        if (Auth::attempt($request->all())) {
-            app()->route->redirect('/hello');
+
+        $errors = HelperRequest::validateLogin($request->all());
+
+        if (empty($errors) && Auth::attempt($request->all())) {
+            HelperResponse::redirectWithMessage('/hello', 'Вы успешно авторизованы');
         }
-        //Если аутентификация не удалась, то сообщение об ошибке
-        return new View('site.login', ['message' => 'Неправильные логин или пароль']);
+
+        $message = !empty($errors)
+            ? HelperResponse::validationErrors($errors)
+            : HelperResponse::errorMessage('Неправильные логин или пароль');
+
+        return new View('site.login', ['message' => $message]);
     }
 
     public function logout(): void
     {
         Auth::logout();
-        app()->route->redirect('/hello');
+        HelperResponse::redirectWithMessage('/hello', 'Вы вышли из системы');
     }
-
 }

@@ -1,5 +1,7 @@
 <h2>Добавление системного администратора</h2>
-
+<?php use Helpers\HelperResponse; ?>
+<?= HelperResponse::displayFlashMessage() ?>
+<?= $message ?? '' ?>
 <ol class="sis">
     <?php
     foreach ($users as $user) {

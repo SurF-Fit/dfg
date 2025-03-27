@@ -1,6 +1,10 @@
+<h2>Связка номера телефона с абонентом</h2>
+<?php use Helpers\HelperResponse; ?>
+<?= HelperResponse::displayFlashMessage() ?>
+<?= $message ?? '' ?>
 <form method="post">
     <label>Номер телефона:
-        <select name="phone_id" required>
+        <select name="phone_id">
             <option value="">Выберите номер телефона</option>
             <?php foreach ($numberPhones as $phone): ?>
                 <option value="<?= $phone->id ?>">
@@ -11,7 +15,7 @@
         </select>
     </label>
     <label>Абонент:
-        <select name="subscriber_id" required>
+        <select name="subscriber_id">
             <option value="">Выберите абонента</option>
             <?php foreach ($subscribers as $sub): ?>
                 <option value="<?= $sub->id ?>">

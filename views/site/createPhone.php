@@ -1,4 +1,7 @@
 <h2>Создание номера телефона</h2>
+<?php use Helpers\HelperResponse; ?>
+<?= HelperResponse::displayFlashMessage() ?>
+<?= $message ?? '' ?>
 <form method="post">
     <label>Номер телефона <input type="tel" name="number_phone" placeholder="80004004040"></label>
     <label>Помещения:
