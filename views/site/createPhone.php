@@ -5,7 +5,7 @@
 <form method="post">
     <label>Номер телефона <input type="tel" name="number_phone" placeholder="80004004040"></label>
     <label>Помещения:
-        <select name="room_id" required>
+        <select name="room_id">
             <option value=""> Выберите Помещение </option>
             <?php foreach ($rooms as $room): ?>
                 <option value="<?= $room->id ?>">

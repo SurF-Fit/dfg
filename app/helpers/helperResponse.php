@@ -39,7 +39,7 @@ class HelperResponse
             $type = $_SESSION['flash_type'] ?? 'success';
             unset($_SESSION['flash_message'], $_SESSION['flash_type']);
 
-            return '<div class="alert alert-' . $type . '">' . $message . '</div>';
+            return '<div' . $type . '">' . $message . '</div>';
         }
         return null;
     }
