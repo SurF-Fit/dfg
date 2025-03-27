@@ -16,4 +16,9 @@ class Subdivision extends Model
         'type_of_unit',
     ];
 
+    public function subscribers()
+    {
+        return $this->hasMany(Subscriber::class, 'subdivision', 'id');
+    }
+
 }

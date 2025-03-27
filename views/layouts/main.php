@@ -55,9 +55,9 @@
                             </div>
                         </div>
                     </div>
-                    <a href="">выбрать номера абонента по подразделениям</a>
-                    <a href="">выбрать все номера абонента</a>
-                    <a href="">подсчитать количество абонентов</a>
+                    <a href="<?= app()->route->getUrl('/phonesBySubdivision') ?>">выбрать номера абонента по подразделениям</a>
+                    <a href="<?= app()->route->getUrl('/selectPhone') ?>">выбрать все номера абонента</a>
+                    <a href="<?= app()->route->getUrl('/selectsubscriber') ?>">подсчитать количество абонентов</a>
                 <?php
                 endif;
             else:

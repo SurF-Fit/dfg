@@ -118,6 +118,39 @@ class Site
         ]);
     }
 
+    public function selectPhone(Request $request): string
+    {
+
+        $subscribers = Subscriber::select('id', 'Surname', 'Name', 'SurnameSecond')->get();
+        $phones = Phone::select('id', 'number_phone')->get();
+
+        return new View('site.selectPhone', [
+            'subscribers' => $subscribers,
+            'numberPhones' => $phones,
+        ]);
+    }
+
+    public function selectsubscriber(Request $request): string
+    {
+
+        $subscribers = Subscriber::all();
+
+        return new View('site.selectPhone', [
+            'subscribers' => $subscribers,
+        ]);
+    }
+
+    public function phonesBySubdivision(Request $request): string
+    {
+        $subdivisions = Subdivision::with(['subscribers.phones'])
+            ->select('id', 'name')
+            ->get();
+
+        return new View('site.phonesBySubdivision', [
+            'subdivisions' => $subdivisions
+        ]);
+    }
+
     public function createSubscribers(Request $request): string
     {
         $subdivisions = Subdivision::select('id', 'name')->get();
