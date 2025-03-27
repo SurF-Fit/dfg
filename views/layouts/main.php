@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -69,22 +69,15 @@
                     </div>
                 <?php
                 endif;
-            else:
             ?>
             <?php
             if (isset(app()->auth::user()->role)):
                 if (app()->auth::user()->role == 0):
                     ?>
-                    <p>Сначала пройди регистрацию\авторизацию и дождитесь одобрения администратора</p>
+                    <p>Дождитесь одобрения администратора</p>
                 <?php
                 endif;
-                else:
-                    ?>
-                    <p>Сначала пройди регистрацию\авторизацию и дождитесь одобрения администратора</p>
-                <?php
             endif;
-                ?>
-            <?php
             endif;
             ?>
         </div>
