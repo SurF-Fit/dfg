@@ -84,6 +84,7 @@
     </nav>
 </header>
 <main>
+    <?= phpinfo() ?>
     <?= $content ?? '' ?>
 </main>
 
