@@ -15,7 +15,8 @@ class Subscriber extends Model
         'Name',
         'SurnameSecond',
         'Date_of_birth',
-        'subdivision'
+        'subdivision',
+        'image_path',
     ];
 
     public function subdivision()

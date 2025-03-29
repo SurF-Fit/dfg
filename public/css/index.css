@@ -10,6 +10,12 @@ body {
     gap: 100px;
 }
 
+img:not(.utya) {
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+}
+
 header {
     display: flex;
     justify-content: center;
