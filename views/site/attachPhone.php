@@ -3,6 +3,7 @@
 <?= HelperResponse::displayFlashMessage() ?>
 <?= $message ?? '' ?>
 <form method="post">
+    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
     <label>Номер телефона:
         <select name="phone_id">
             <option value="">Выберите номер телефона</option>
@@ -15,7 +16,7 @@
         </select>
     </label>
     <label>Абонент:
-        <select name="subscriber_id">
+        <select name="subscriber_id"    >
             <option value="">Выберите абонента</option>
             <?php foreach ($subscribers as $sub): ?>
                 <option value="<?= $sub->id ?>">

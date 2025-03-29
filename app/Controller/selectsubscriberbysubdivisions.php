@@ -11,12 +11,16 @@ class selectsubscriberbysubdivisions
 {
     public function selectsubscriberbysubdivisions(Request $request): string
     {
-        $subscribers = Subscriber::all();
-        $subdivisions = Subdivision::with('subscribers')->get();
+        if($_SESSION['role'] == 2) {
+            $subscribers = Subscriber::all();
+            $subdivisions = Subdivision::with('subscribers')->get();
 
-        return new View('site.selectsubscriberbysubdivisions', [
-            'subdivisions' => $subdivisions,
-            'subscribers' => $subscribers
-        ]);
+            return new View('site.selectsubscriberbysubdivisions', [
+                'subdivisions' => $subdivisions,
+                'subscribers' => $subscribers
+            ]);
+        }
+
+        return new View('site.hello');
     }
 }

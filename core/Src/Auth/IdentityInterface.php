@@ -8,6 +8,8 @@ interface IdentityInterface
 
     public function getId(): int;
 
+    public function getRole(): int;
+
     public function attemptIdentity(array $credentials);
 }
 

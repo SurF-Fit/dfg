@@ -12,19 +12,23 @@ class attachPhone
 {
     public function attachPhone(Request $request): string
     {
-        $subscribers = Subscriber::select('id', 'Surname', 'Name', 'SurnameSecond')->get();
-        $phones = Phone::whereNull('subscriber')->select('id', 'number_phone')->get();
 
-        if ($request->method === 'POST') {
-            Phone::where('id', $request->phone_id)
-                ->update(['subscriber' => $request->subscriber_id]);
+        if($_SESSION['role'] == 2) {
+            $subscribers = Subscriber::select('id', 'Surname', 'Name', 'SurnameSecond')->get();
+            $phones = Phone::whereNull('subscriber')->select('id', 'number_phone')->get();
 
-            HelperResponse::redirectWithMessage('/attachPhone', 'Телефон успешно привязан');
+            if ($request->method === 'POST') {
+                Phone::where('id', $request->phone_id)
+                    ->update(['subscriber' => $request->subscriber_id]);
+
+                HelperResponse::redirectWithMessage('/attachPhone', 'Телефон успешно привязан');
+            }
+
+            return new View('site.attachPhone', [
+                'subscribers' => $subscribers,
+                'numberPhones' => $phones,
+            ]);
         }
-
-        return new View('site.attachPhone', [
-            'subscribers' => $subscribers,
-            'numberPhones' => $phones,
-        ]);
+        return new View('site.hello');
     }
 }

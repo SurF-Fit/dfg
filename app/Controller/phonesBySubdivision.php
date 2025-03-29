@@ -11,12 +11,17 @@ class phonesBySubdivision
 {
     public function phonesBySubdivision(Request $request): string
     {
-        $subscribers = Subscriber::with('phones')->get();
-        $subdivisions = Subdivision::with('subscribers')->get();
 
-        return new View('site.phonesBySubdivision', [
-            'subdivisions' => $subdivisions,
-            'subscribers' => $subscribers
-        ]);
+        if($_SESSION['role'] == 2) {
+            $subscribers = Subscriber::with('phones')->get();
+            $subdivisions = Subdivision::with('subscribers')->get();
+
+            return new View('site.phonesBySubdivision', [
+                'subdivisions' => $subdivisions,
+                'subscribers' => $subscribers
+            ]);
+        }
+
+        return new View('site.hello');
     }
 }

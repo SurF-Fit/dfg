@@ -2,6 +2,7 @@
 
 namespace Src\Auth;
 
+use Model\User;
 use Src\Session;
 
 class Auth
@@ -23,6 +24,7 @@ class Auth
     {
         self::$user = $user;
         Session::set('id', self::$user->getId());
+        Session::set('role', self::$user->getRole());
     }
 
     //Аутентификация пользователя и вход по учетным данным
@@ -64,6 +66,4 @@ class Auth
         Session::set('csrf_token', $token);
         return $token;
     }
-
-
 }

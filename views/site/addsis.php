@@ -6,8 +6,11 @@
     <?php
     foreach ($users as $user) {
         echo '<form method="post">';
+        ?>
+        <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
+    <?php
         echo '<input type="hidden" name="user_id" value="' . $user->id . '">';
-        echo '<li>' . $user->name . '</li>';
+        echo '<li>' . $user->login . '</li>';
 
         if($user->role === 0):
             echo '<span style="color: red">(требует подтверждение)</span>';

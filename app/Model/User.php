@@ -36,6 +36,11 @@ class User extends Model implements IdentityInterface
         return $this->id;
     }
 
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
     //Возврат аутентифицированного пользователя
     public function attemptIdentity(array $credentials)
     {

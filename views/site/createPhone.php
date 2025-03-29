@@ -3,6 +3,7 @@
 <?= HelperResponse::displayFlashMessage() ?>
 <?= $message ?? '' ?>
 <form method="post">
+    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
     <label>Номер телефона <input type="tel" name="number_phone" placeholder="80004004040"></label>
     <label>Помещения:
         <select name="room_id">

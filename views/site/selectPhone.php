@@ -1,4 +1,4 @@
-<h1>Список абонентов с номером</h1>
+<h1>Список абонентов с номерами</h1>
 
 <?php foreach ($subscribers as $subscriber): ?>
     <div>

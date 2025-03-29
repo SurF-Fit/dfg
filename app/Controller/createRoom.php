@@ -13,25 +13,29 @@ class createRoom
 {
     public function createRoom(Request $request): string
     {
-        $subdivisions = Subdivision::select('id', 'name')->get();
+        if($_SESSION['role'] == 2) {
+            $subdivisions = Subdivision::select('id', 'name')->get();
 
-        if ($request->method === 'POST') {
-            $errors = HelperRequest::validateRoom($request->all());
+            if ($request->method === 'POST') {
+                $errors = HelperRequest::validateRoom($request->all());
 
-            if (empty($errors)) {
-                Room::create([
-                    'Name' => $request->name,
-                    'Type_of_room' => $request->Type_of_room,
-                    'subdivision' => $request->subdivision_id
+                if (empty($errors)) {
+                    Room::create([
+                        'Name' => $request->name,
+                        'Type_of_room' => $request->Type_of_room,
+                        'subdivision' => $request->subdivision_id
+                    ]);
+                    HelperResponse::redirectWithMessage('/hello', 'Помещение успешно создано');
+                }
+                return new View('site.createRoom', [
+                    'subdivisions' => $subdivisions,
+                    'message' => HelperResponse::validationErrors($errors)
                 ]);
-                HelperResponse::redirectWithMessage('/hello', 'Помещение успешно создано');
             }
-            return new View('site.createRoom', [
-                'subdivisions' => $subdivisions,
-                'message' => HelperResponse::validationErrors($errors)
-            ]);
+
+            return new View('site.createRoom', ['subdivisions' => $subdivisions]);
         }
 
-        return new View('site.createRoom', ['subdivisions' => $subdivisions]);
+        return new View('site.hello');
     }
 }

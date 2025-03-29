@@ -2,8 +2,10 @@
 
 namespace Controller;
 
+use Model\User;
 use Src\Request;
 use Model\Post;
+use Src\Session;
 use Src\View;
 use Src\Auth\Auth;
 use Helpers\HelperRequest;
@@ -11,12 +13,6 @@ use Helpers\HelperResponse;
 
 class Site
 {
-    public function index(Request $request): string
-    {
-        $posts = Post::where('id', $request->id)->get();
-        return (new View())->render('site.post', ['posts' => $posts]);
-    }
-
     public function hello(): string
     {
         return new View('site.hello', ['message' => 'Давай работать!!!']);
@@ -44,6 +40,7 @@ class Site
     public function logout(): void
     {
         Auth::logout();
+        session_destroy();
         HelperResponse::redirectWithMessage('/hello', 'Вы вышли из системы');
     }
 }

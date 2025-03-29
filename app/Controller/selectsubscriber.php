@@ -10,7 +10,11 @@ class selectsubscriber
 {
     public function selectsubscriber(Request $request): string
     {
-        $subscribers = Subscriber::all();
-        return new View('site.selectsubscriber', ['subscribers' => $subscribers]);
+        if($_SESSION['role'] == 2) {
+            $subscribers = Subscriber::all();
+            return new View('site.selectsubscriber', ['subscribers' => $subscribers]);
+        }
+
+        return new View('site.hello');
     }
 }

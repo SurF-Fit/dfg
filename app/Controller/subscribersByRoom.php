@@ -11,12 +11,17 @@ class subscribersByRoom
 {
     public function subscribersByRoom(Request $request): string
     {
-        $rooms = Room::with(['phones.subscriber'])->get();
-        $subscribers = Subscriber::all();
 
-        return new View('site.subscribersByRoom', [
-            'rooms' => $rooms,
-            'subscribers' => $subscribers
-        ]);
+        if($_SESSION['role'] == 2) {
+            $rooms = Room::with(['phones.subscriber'])->get();
+            $subscribers = Subscriber::all();
+
+            return new View('site.subscribersByRoom', [
+                'rooms' => $rooms,
+                'subscribers' => $subscribers
+            ]);
+        }
+
+        return new View('site.hello');
     }
 }

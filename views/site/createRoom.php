@@ -3,6 +3,7 @@
 <?= HelperResponse::displayFlashMessage() ?>
 <?= $message ?? '' ?>
 <form method="post">
+    <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
     <label>Название: <input type="text" name="name"></label>
 
     <label>Тип комнаты: <input type="text" name="Type_of_room"></label>
