@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1990a4f579e2f9af7e16f4f51a6dd61",
+    "content-hash": "8762e7a1d09d3816a62c23759b487289",
     "packages": [
         {
             "name": "brick/math",
@@ -1098,6 +1098,94 @@
             "time": "2022-04-08T16:41:45+00:00"
         },
         {
+            "name": "sur-f-fit/collect",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SurF-Fit/Collect.git",
+                "reference": "6ed61f286039231e7b9a633587b06ae43a05a698"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SurF-Fit/Collect/zipball/6ed61f286039231e7b9a633587b06ae43a05a698",
+                "reference": "6ed61f286039231e7b9a633587b06ae43a05a698",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 | ^8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Collect\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SurF-Fit",
+                    "email": "kkulmenev@gmail.com"
+                }
+            ],
+            "description": "Module for working with arrays ",
+            "support": {
+                "issues": "https://github.com/SurF-Fit/Collect/issues",
+                "source": "https://github.com/SurF-Fit/Collect/tree/main"
+            },
+            "time": "2025-03-29T04:47:11+00:00"
+        },
+        {
+            "name": "sur-f-fit/validator",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SurF-Fit/Validator.git",
+                "reference": "da6c076eca840bad7a3d147ba07c0e6f36c8ecc7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SurF-Fit/Validator/zipball/da6c076eca840bad7a3d147ba07c0e6f36c8ecc7",
+                "reference": "da6c076eca840bad7a3d147ba07c0e6f36c8ecc7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Validator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SurF-Fit",
+                    "email": "kkulmenev@gmail.com"
+                }
+            ],
+            "description": "Module whis working of validations",
+            "support": {
+                "issues": "https://github.com/SurF-Fit/Validator/issues",
+                "source": "https://github.com/SurF-Fit/Validator/tree/main"
+            },
+            "time": "2025-03-29T05:48:54+00:00"
+        },
+        {
             "name": "symfony/deprecation-contracts",
             "version": "dev-main",
             "source": {
@@ -1581,7 +1669,9 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "nikic/fast-route": 20
+        "nikic/fast-route": 20,
+        "sur-f-fit/collect": 20,
+        "sur-f-fit/validator": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

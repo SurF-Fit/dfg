@@ -2,6 +2,8 @@
 
 namespace Helpers;
 
+use Validator\Validator;
+
 class HelperRequest
 {
     public static function validateSignup(array $data): array
@@ -10,25 +12,26 @@ class HelperRequest
 
         if (empty($data['name'])) {
             $errors['name'] = 'Имя обязательно для заполнения';
-        } elseif (strlen($data['name']) > 255) {
-            $errors['name'] = 'Имя не должно превышать 255 символов';
-        } elseif (!preg_match('/^[a-zA-Zа-яА-ЯёЁ\s\-]+$/u', $data['name'])) {
+        } elseif (strlen($data['name']) > Validator::MAX_NAME_LENGTH) {
+            $errors['name'] = 'Имя не должно превышать ' . Validator::MAX_NAME_LENGTH . ' символов';
+        } elseif (!preg_match(Validator::NAME, $data['name'])) {
             $errors['name'] = 'Имя может содержать только буквы, пробелы и дефисы';
         }
 
         if (empty($data['login'])) {
             $errors['login'] = 'Логин обязателен для заполнения';
-        } elseif (strlen($data['login']) > 50) {
-            $errors['login'] = 'Логин не должен превышать 50 символов';
-        } elseif (!preg_match('/^[a-zA-Z0-9_\-]+$/', $data['login'])) {
+        } elseif (strlen($data['login']) > Validator::MAX_LOGIN_LENGTH) {
+            $errors['login'] = 'Логин не должен превышать ' . Validator::MAX_LOGIN_LENGTH . ' символов';
+        } elseif (!preg_match(Validator::LOGIN, $data['login'])) {
             $errors['login'] = 'Логин может содержать только латинские буквы, цифры, дефисы и подчёркивания';
         }
 
         if (empty($data['password'])) {
             $errors['password'] = 'Пароль обязателен для заполнения';
-        } elseif (strlen($data['password']) < 6) {
-            $errors['password'] = 'Пароль должен содержать минимум 6 символов';
-        } elseif (!preg_match('/[A-Z]/', $data['password']) || !preg_match('/[0-9]/', $data['password'])) {
+        } elseif (strlen($data['password']) < Validator::MIN_PASSWORD_LENGTH) {
+            $errors['password'] = 'Пароль должен содержать минимум ' . Validator::MIN_PASSWORD_LENGTH . ' символов';
+        } elseif (!preg_match(Validator::PASSWORD_COMPLEXITY, $data['password']) ||
+            !preg_match(Validator::PASSWORD_DIGITS, $data['password'])) {
             $errors['password'] = 'Пароль должен содержать хотя бы одну заглавную букву и одну цифру';
         }
 
@@ -41,7 +44,7 @@ class HelperRequest
 
         if (empty($data['login'])) {
             $errors['login'] = 'Логин обязателен для заполнения';
-        } elseif (!preg_match('/^[a-zA-Z0-9_\-]+$/', $data['login'])) {
+        } elseif (!preg_match(Validator::LOGIN, $data['login'])) {
             $errors['login'] = 'Логин может содержать только латинские буквы, цифры, дефисы и подчёркивания';
         }
 
@@ -58,13 +61,13 @@ class HelperRequest
 
         if (empty($data['Surname'])) {
             $errors['Surname'] = 'Фамилия обязательна для заполнения';
-        } elseif (!preg_match('/^[a-zA-Zа-яА-ЯёЁ\s\-]+$/u', $data['Surname'])) {
+        } elseif (!preg_match(Validator::SURNAME, $data['Surname'])) {
             $errors['Surname'] = 'Фамилия может содержать только буквы, пробелы и дефисы';
         }
 
         if (empty($data['Name'])) {
             $errors['Name'] = 'Имя обязательно для заполнения';
-        } elseif (!preg_match('/^[a-zA-Zа-яА-ЯёЁ\s\-]+$/u', $data['Name'])) {
+        } elseif (!preg_match(Validator::NAME, $data['Name'])) {
             $errors['Name'] = 'Имя может содержать только буквы, пробелы и дефисы';
         }
 
@@ -81,7 +84,7 @@ class HelperRequest
 
         if (empty($data['number_phone'])) {
             $errors['number_phone'] = 'Номер телефона обязателен для заполнения';
-        } elseif (!preg_match('/^\+?\d{10,15}$/', $data['number_phone'])) {
+        } elseif (!preg_match(Validator::PHONE, $data['number_phone'])) {
             $errors['number_phone'] = 'Номер телефона должен содержать от 10 до 15 цифр, может начинаться с +';
         }
 
@@ -98,7 +101,7 @@ class HelperRequest
 
         if (empty($data['name'])) {
             $errors['name'] = 'Название помещения обязательно для заполнения';
-        } elseif (!preg_match('/^[a-zA-Zа-яА-ЯёЁ0-9\s\-\/]+$/u', $data['name'])) {
+        } elseif (!preg_match(Validator::ROOM_NAME, $data['name'])) {
             $errors['name'] = 'Название может содержать только буквы, цифры, пробелы, дефисы и слэши';
         }
 
@@ -119,7 +122,7 @@ class HelperRequest
 
         if (empty($data['Name'])) {
             $errors['Name'] = 'Название подразделения обязательно для заполнения';
-        } elseif (!preg_match('/^[a-zA-Zа-яА-ЯёЁ0-9\s\-\/]+$/u', $data['Name'])) {
+        } elseif (!preg_match(Validator::SUBDIVISION_NAME, $data['Name'])) {
             $errors['Name'] = 'Название может содержать только буквы, цифры, пробелы, дефисы и слэши';
         }
 

@@ -9,6 +9,9 @@
 </head>
 <body>
     <h2><?= $message ?? ''; ?></h2>
-    <img class="utya" src="../img/utya-utya-duck.gif" alt="utya">
+    <div class="utya-container">
+        <img class="utya" src="../img/utya-utya-duck.gif" alt="Утка 1">
+        <img class="utya" src="../img/utya-utya-duck.gif" alt="Утка 2">
+    </div>
 </body>
 </html>
