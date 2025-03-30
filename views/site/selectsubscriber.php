@@ -3,10 +3,9 @@
     <?php foreach ($subscribers as $sub): ?>
         <li>
             <?php if ($sub->image_path): ?>
-                <img src="<?= '/' . $sub->image_path?>" alt="Фото абонента" style="max-width: 200px;">
-                <br>
+                <img src="<?= '/' . $sub->image_path?>" alt="Фото абонента" style="max-width: 200px; border: 1px solid black">
             <?php else: ?>
-                <p>Фото отсутствует</p>
+                <img style="max-width: 200px; border: 1px solid black" src="/public/img/utya-utya-duck.gif" alt="Заглушка">
             <?php endif; ?>
             <?= $sub->Surname ?> <?= $sub->Name ?> <?= $sub->SurnameSecond ?> ( <?= date('d.m.Y', strtotime($sub->Date_of_birth)) ?> )
         </li>
