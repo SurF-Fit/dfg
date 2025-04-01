@@ -5,6 +5,7 @@
 
 <form method="POST">
     <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
+    <input type="hidden" name="user_id" value="<?= app()->auth::user()->id ?>">
 
     <div class="form-group">
         <label>Номер телефона:</label>

@@ -18,6 +18,7 @@ class User extends Model implements IdentityInterface
         'password',
         'role',
     ];
+
     protected static function booted()
     {
         static::created(function ($user) {
@@ -45,6 +46,11 @@ class User extends Model implements IdentityInterface
     {
         return self::where(['login' => $credentials['login'],
             'password' => md5($credentials['password'])])->first();
+    }
+
+    public function attachedUsers()
+    {
+        return $this->hasMany(AttachedUser::class, 'user_id', 'id');
     }
 
 }

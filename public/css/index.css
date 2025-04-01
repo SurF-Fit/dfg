@@ -33,7 +33,7 @@ img:not(.utya) {
 }
 
 .utya:nth-child(2) {
-    animation-delay: 1s;
+    animation-delay: 3s;
     left: -100%;
 }
 

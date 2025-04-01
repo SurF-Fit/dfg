@@ -6,7 +6,9 @@ use Helpers\HelperResponse;
 use Model\AttachedUser;
 use Model\Phone;
 use Model\Room;
+use Model\User;
 use Model\Subscriber;
+use Src\Auth\Auth;
 use Src\Request;
 use Src\View;
 
@@ -33,11 +35,11 @@ class AttachPhone
                 AttachedUser::updateOrCreate(
                     [
                         'subscriber_id' => $request->subscriber_id,
-                        'phone_id' => $request->phone_id
+                        'phone_id' => $request->phone_id,
+                        'room_id' => $request->room_id,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'user_id' => $request->user_id,
                     ],
-                    [
-                        'room_id' => $request->room_id
-                    ]
                 );
 
                 HelperResponse::redirectWithMessage('/attachPhone', 'Телефон успешно привязан');

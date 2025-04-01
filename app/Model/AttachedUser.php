@@ -14,6 +14,8 @@ class AttachedUser extends Model
         'subscriber_id',
         'room_id',
         'phone_id',
+        'user_id',
+        'created_at',
     ];
 
     public function subscriber()
@@ -29,5 +31,10 @@ class AttachedUser extends Model
     public function phone()
     {
         return $this->belongsTo(Phone::class, 'phone_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
