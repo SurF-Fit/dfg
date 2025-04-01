@@ -15,17 +15,23 @@ class Subscriber extends Model
         'Name',
         'SurnameSecond',
         'Date_of_birth',
-        'subdivision',
         'image_path',
     ];
 
-    public function subdivision()
+    public function attachedUsers()
     {
-        return $this->belongsTo(Subdivision::class, 'subdivision', 'id');
+        return $this->hasMany(AttachedUser::class, 'subscriber_id', 'id');
     }
 
     public function phones()
     {
-        return $this->hasMany(Phone::class, 'subscriber', 'id');
+        return $this->hasManyThrough(
+            Phone::class,
+            AttachedUser::class,
+            'subscriber_id',
+            'id',
+            'id',
+            'phone_id'
+        );
     }
 }

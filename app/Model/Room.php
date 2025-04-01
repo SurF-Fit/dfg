@@ -13,16 +13,16 @@ class Room extends Model
     protected $fillable = [
         'Name',
         'Type_of_room',
-        'subdivision'
+        'subdivision_id'
     ];
 
     public function subdivision()
     {
-        return $this->belongsTo(Subdivision::class, 'subdivision', 'id');
+        return $this->belongsTo(Subdivision::class);
     }
 
-    public function phones()
+    public function attachedUsers()
     {
-        return $this->hasMany(Phone::class, 'room', 'id');
+        return $this->hasMany(AttachedUser::class);
     }
 }

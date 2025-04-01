@@ -10,7 +10,7 @@
 
     <label>Подразделение:
         <select name="subdivision_id">
-            <option value=""> Выберите подразделение </option>
+            <option value="">Выберите подразделение</option>
             <?php foreach ($subdivisions as $subdiv): ?>
                 <option value="<?= $subdiv->id ?>">
                     <?= $subdiv->name ?>

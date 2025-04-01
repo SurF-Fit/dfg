@@ -71,10 +71,6 @@ class HelperRequest
             $errors['Name'] = 'Имя может содержать только буквы, пробелы и дефисы';
         }
 
-        if (empty($data['subdivision_id'])) {
-            $errors['subdivision_id'] = 'Подразделение обязательно для выбора';
-        }
-
         return $errors;
     }
 
@@ -86,10 +82,6 @@ class HelperRequest
             $errors['number_phone'] = 'Номер телефона обязателен для заполнения';
         } elseif (!preg_match(Validator::PHONE, $data['number_phone'])) {
             $errors['number_phone'] = 'Номер телефона должен содержать от 10 до 15 цифр, может начинаться с +';
-        }
-
-        if (empty($data['room_id'])) {
-            $errors['room_id'] = 'Помещение обязательно для выбора';
         }
 
         return $errors;

@@ -1,27 +1,40 @@
-<h1>Абоненты по подразделниям</h1>
+<h1>Телефоны по подразделениям</h1>
+
 <?php foreach ($subdivisions as $subdivision): ?>
-    <?php if ($subdivision->subscribers->isNotEmpty()): ?>
-        <h2>подразделение: <?= $subdivision->Name ?></h2>
-        <?php foreach ($subdivision->subscribers as $subscriber): ?>
-            <div>
-                <h3>
-                    <?= $subscriber->Surname ?>
-                    <?= $subscriber->Name ?>
-                </h3>
+    <div style="margin-bottom: 30px; border: 1px solid #ddd; padding: 15px;">
+        <h2><?= htmlspecialchars($subdivision->Name) ?></h2>
 
-                <p><strong>Дата рождения:</strong>
-                    <?= date('d.m.Y', strtotime($subscriber->Date_of_birth)) ?>
-                </p>
+        <?php foreach ($subdivision->rooms as $room): ?>
+            <div style="margin: 15px 0; padding: 10px; background: #f5f5f5;">
+                <h3>Помещение: <?= htmlspecialchars($room->Name) ?></h3>
 
-                <h4>Телефоны:</h4>
-                <?php if ($subscriber->phones->isNotEmpty()): ?>
-                    <?php foreach ($subscriber->phones as $phone): ?>
-                        <a href="tel:<?= ($phone->number_phone) ?>"><?= ($phone->number_phone) ?></a> <br>
-                    <?php endforeach; ?>
+                <?php if ($room->attachedUsers->isNotEmpty()): ?>
+                    <ul>
+                        <?php foreach ($room->attachedUsers as $attached): ?>
+                            <li>
+                                <?php if ($attached->subscriber): ?>
+                                    <?= htmlspecialchars($attached->subscriber->Surname ?? '') ?>
+                                    <?= htmlspecialchars($attached->subscriber->Name ?? '') ?>
+                                <?php else: ?>
+                                    Абонент не найден
+                                <?php endif; ?>
+
+                                -
+
+                                <?php if ($attached->phone): ?>
+                                    <a href="tel:<?= htmlspecialchars($attached->phone->number_phone) ?>">
+                                        <?= htmlspecialchars($attached->phone->number_phone) ?>
+                                    </a>
+                                <?php else: ?>
+                                    Телефон не указан
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 <?php else: ?>
-                    <p style="color: #999;">(нет привязанных телефонов)</p>
+                    <p style="color: #999;">Нет привязанных абонентов</p>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
-    <?php endif; ?>
+    </div>
 <?php endforeach; ?>

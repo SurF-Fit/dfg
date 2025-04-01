@@ -1,26 +1,24 @@
-<h1>Абоненты по подразделниям</h1>
 <?php foreach ($subdivisions as $subdivision): ?>
-    <?php if ($subdivision->subscribers->isNotEmpty()): ?>
-        <h2>Подразделение: <?= $subdivision->Name ?> </h2><span>Абонентов: <?= count($subdivision->subscribers) ?> чел.</span>
-        <ol>
-        <?php foreach ($subdivision->subscribers as $subscriber): ?>
-
-                <li>
-                    <h3>
-                        <?= $subscriber->Surname ?>
-                        <?= $subscriber->Name ?>
-                    </h3>
-
-                    <p><strong>Дата рождения:</strong>
-                        <?= date('d.m.Y', strtotime($subscriber->Date_of_birth)) ?>
-                    </p>
-                </li>
-        <?php endforeach; ?>
-        </ol>
-    <?php endif; ?>
+    <h3><?= $subdivision->Name ?></h3>
+    <?php foreach ($subdivision->rooms as $room): ?>
+        <div>
+            <strong><?= $room->Name ?> (<?= $room->Type_of_room ?>)</strong>
+            <?php foreach ($room->attachedUsers as $attachedUser): ?>
+                <div>
+                    <?= $attachedUser->subscriber->Surname ?>
+                    <?= $attachedUser->subscriber->Name ?>
+                    <?= $attachedUser->subscriber->SurnameSecond ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
 <?php endforeach; ?>
 
-
-
-
-
+    <h3>Непривязанные абоненты</h3>
+<?php foreach ($unattachedSubscribers as $subscriber): ?>
+    <div>
+        <?= $subscriber->Surname ?>
+        <?= $subscriber->Name ?>
+        <?= $subscriber->SurnameSecond ?>
+    </div>
+<?php endforeach; ?>

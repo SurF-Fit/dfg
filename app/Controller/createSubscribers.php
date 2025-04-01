@@ -14,8 +14,6 @@ class createSubscribers
     public function createSubscribers(Request $request): string
     {
         if($_SESSION['role'] == 2) {
-            $subdivisions = Subdivision::select('id', 'name')->get();
-
             if ($request->method === 'POST') {
                 $errors = HelperRequest::validateSubscriber($request->all());
 
@@ -41,13 +39,14 @@ class createSubscribers
 
                         $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
                         $filename = uniqid() . '.' . $extension;
-                        $imagePath = $uploadDir . $filename;
+                        $relativePath = 'uploads/subscribers/' . $filename;
+                        $absolutePath = $uploadDir . $filename;
 
-                        if (!move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
+                        if (!move_uploaded_file($_FILES['image']['tmp_name'], $absolutePath)) {
                             HelperResponse::redirectWithMessage('/createSubscribers', 'Ошибка при загрузке изображения');
                         }
 
-                        $imagePath = str_replace('public/', '', $imagePath); // Для доступа через веб
+                        $imagePath = $relativePath;
                     }
 
                     Subscriber::create([
@@ -55,7 +54,6 @@ class createSubscribers
                         'Name' => $request->Name,
                         'SurnameSecond' => $request->SurnameSecond,
                         'Date_of_birth' => $request->Date_of_birth,
-                        'subdivision' => $request->subdivision_id,
                         'image_path' => $imagePath,
                     ]);
 
@@ -63,13 +61,12 @@ class createSubscribers
                 }
 
                 return new View('site.createSubscribers', [
-                    'subdivisions' => $subdivisions,
                     'message' => HelperResponse::validationErrors($errors),
                     'request' => $request,
                 ]);
             }
 
-            return new View('site.createSubscribers', ['subdivisions' => $subdivisions]);
+            return new View('site.createSubscribers');
         }
 
         return new View('site.hello');

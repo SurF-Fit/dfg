@@ -12,17 +12,10 @@ class Phone extends Model
     public $timestamps = false;
     protected $fillable = [
         'number_phone',
-        'subscriber ',
-        'room'
     ];
 
-    public function subscriber()
+    public function attachedUsers()
     {
-        return $this->belongsTo(Subscriber::class, 'subscriber', 'id');
-    }
-
-    public function room()
-    {
-        return $this->belongsTo(Room::class, 'room', 'id');
+        return $this->hasMany(AttachedUser::class);
     }
 }

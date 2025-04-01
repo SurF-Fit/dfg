@@ -16,9 +16,8 @@ class Subdivision extends Model
         'type_of_unit',
     ];
 
-    public function subscribers()
+    public function rooms()
     {
-        return $this->hasMany(Subscriber::class, 'subdivision', 'id');
+        return $this->hasMany(Room::class);
     }
-
 }

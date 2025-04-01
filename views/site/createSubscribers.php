@@ -14,18 +14,8 @@
 
     <label>День рождения: <input type="date" name="Date_of_birth" value="<?= $request->Date_of_birth ?? '' ?>"></label>
 
-    <label>Фотография: <input type="file" name="image" accept="image/jpeg,image/png,image/gif"></label>
-
-    <label>Подразделение:
-        <select name="subdivision_id">
-            <option value=""> Выберите подразделение </option>
-            <?php foreach ($subdivisions as $subdiv): ?>
-                <option value="<?= $subdiv->id ?>" <?= isset($request->subdivision_id) && $request->subdivision_id == $subdiv->id ? 'selected' : '' ?>>
-                    <?= $subdiv->name ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </label>
+    <label>Фотография: </label>
+    <input type="file" name="image" accept="image/jpeg,image/png,image/gif">
 
     <button type="submit">Добавить</button>
 </form>

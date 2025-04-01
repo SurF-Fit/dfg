@@ -3,7 +3,6 @@
 namespace Controller;
 
 use Model\Room;
-use Model\Subscriber;
 use Src\Request;
 use Src\View;
 
@@ -11,14 +10,15 @@ class subscribersByRoom
 {
     public function subscribersByRoom(Request $request): string
     {
-
         if($_SESSION['role'] == 2) {
-            $rooms = Room::with(['phones.subscriber'])->get();
-            $subscribers = Subscriber::all();
+            $rooms = Room::with([
+                'attachedUsers.subscriber',
+                'attachedUsers.phone',
+                'subdivision'
+            ])->get();
 
             return new View('site.subscribersByRoom', [
-                'rooms' => $rooms,
-                'subscribers' => $subscribers
+                'rooms' => $rooms
             ]);
         }
 

@@ -23,7 +23,7 @@ class createRoom
                     Room::create([
                         'Name' => $request->name,
                         'Type_of_room' => $request->Type_of_room,
-                        'subdivision' => $request->subdivision_id
+                        'subdivision_id' => $request->subdivision_id
                     ]);
                     HelperResponse::redirectWithMessage('/hello', 'Помещение успешно создано');
                 }
