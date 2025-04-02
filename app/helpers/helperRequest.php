@@ -59,16 +59,16 @@ class HelperRequest
     {
         $errors = [];
 
-        if (empty($data['Surname'])) {
-            $errors['Surname'] = 'Фамилия обязательна для заполнения';
-        } elseif (!preg_match(Validator::SURNAME, $data['Surname'])) {
-            $errors['Surname'] = 'Фамилия может содержать только буквы, пробелы и дефисы';
+        if (empty($data['surname'])) {
+            $errors['surname'] = 'Фамилия обязательна для заполнения';
+        } elseif (!preg_match(Validator::SURNAME, $data['surname'])) {
+            $errors['surname'] = 'Фамилия может содержать только буквы, пробелы и дефисы';
         }
 
-        if (empty($data['Name'])) {
-            $errors['Name'] = 'Имя обязательно для заполнения';
-        } elseif (!preg_match(Validator::NAME, $data['Name'])) {
-            $errors['Name'] = 'Имя может содержать только буквы, пробелы и дефисы';
+        if (empty($data['name'])) {
+            $errors['name'] = 'Имя обязательно для заполнения';
+        } elseif (!preg_match(Validator::NAME, $data['name'])) {
+            $errors['name'] = 'Имя может содержать только буквы, пробелы и дефисы';
         }
 
         return $errors;

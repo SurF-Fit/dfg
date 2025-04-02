@@ -50,14 +50,15 @@ class createSubscribers
                     }
 
                     Subscriber::create([
-                        'Surname' => $request->Surname,
-                        'Name' => $request->Name,
-                        'SurnameSecond' => $request->SurnameSecond,
-                        'Date_of_birth' => $request->Date_of_birth,
+                        'surname' => $request->surname,
+                        'name' => $request->name,
+                        'surnamesecond' => $request->surnamesecond,
+                        'date_of_birth' => $request->date_of_birth,
                         'image_path' => $imagePath,
                     ]);
 
-                    HelperResponse::redirectWithMessage('/hello', 'Абонент успешно создан');
+                    app()->route->redirect('/createSubscribers');
+                    return false;
                 }
 
                 return new View('site.createSubscribers', [

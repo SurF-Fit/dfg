@@ -11,10 +11,10 @@ class Subscriber extends Model
 
     public $timestamps = false;
     protected $fillable = [
-        'Surname',
-        'Name',
-        'SurnameSecond',
-        'Date_of_birth',
+        'surname',
+        'name',
+        'surnamesecond',
+        'date_of_birth',
         'image_path',
     ];
 

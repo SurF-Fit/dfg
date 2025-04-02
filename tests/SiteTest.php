@@ -1,8 +1,8 @@
 <?php
 
 use Model\User;
+use Model\Subscriber;
 use PHPUnit\Framework\TestCase;
-use Src\Request;
 
 class SiteTest extends TestCase
 {
@@ -34,10 +34,6 @@ class SiteTest extends TestCase
      */
     public function testSignup(string $httpMethod, array $userData, string $message): void
     {
-        //Выбираем занятый логин из базы данных
-        if ($userData['login'] === 'OlgaSisAdmin') {
-            $userData['login'] = User::get()->first()->login;
-        }
 
         // Создаем заглушку для класса Request.
         $request = $this->createMock(\Src\Request::class);
@@ -63,7 +59,7 @@ class SiteTest extends TestCase
         User::where('login', $userData['login'])->delete();
 
         //Проверяем редирект при успешной регистрации
-        $this->assertEquals('/login', $result->getHeader('Location'));
+        $this->assertContains($message, xdebug_get_headers());
     }
 
     public static function additionProvider(): array
@@ -74,20 +70,116 @@ class SiteTest extends TestCase
                 'name' => '',
                 'login' => '',
                 'password' => '',
-                'csrf_token' => 'mocked_token',
             ],'Имя обязательно для заполнения', 'Логин обязателен для заполнения', 'Пароль обязателен для заполнения'],
             ['POST', [
                 'name' => 'Ольга',
                 'login' => 'OlgaSisAdmin%',
                 'password' => '23WEsdxc',
-                'csrf_token' => 'mocked_token',
             ],'Логин может содержать только латинские буквы'],
             ['POST', [
                 'name' => 'Ольга',
                 'login' => md5(time()),
                 'password' => '23WEsdxc',
-                'csrf_token' => 'mocked_token',
             ], 'Location: /login'],
+        ];
+    }
+
+
+    /**
+     * @dataProvider additionProviderLogin
+     */
+    public function testLogin(string $httpMethod, array $userData, string $message): void
+    {
+
+        // Создаем заглушку для класса Request.
+        $request = $this->createMock(\Src\Request::class);
+        // Переопределяем метод all() и свойство method
+        $request->expects($this->any())
+            ->method('all')
+            ->willReturn(array_merge($userData, ['csrf_token' => 'mocked_token']));
+        $request->method = $httpMethod;
+
+        //Сохраняем результат работы метода в переменную
+        $result = (new \Controller\Site())->login($request);
+
+        if (!empty($result)) {
+            //Проверяем варианты с ошибками валидации
+            $message = '/' . preg_quote($message, '/') . '/';
+            $this->expectOutputRegex($message);
+            return;
+        }
+
+        //Проверяем редирект при успешной регистрации
+        $this->assertContains($message, xdebug_get_headers());
+    }
+
+    public static function additionProviderLogin(): array
+    {
+        return [
+            ['GET', ['login' => '', 'password' => ''], ''],
+            ['POST', [
+                'login' => 'OlgaSisAdmin',
+                'password' => '23WEsdxc',
+            ],'Location: /hello'],
+        ];
+    }
+
+    /**
+     * @dataProvider subscribersProvider
+     */
+    public function testCreateSubscribers(string $httpMethod, array $subscriberData, string $message): void
+    {
+
+        $request = $this->createMock(\Src\Request::class);
+
+        $request->expects($this->any())
+            ->method('all')
+            ->willReturn(array_merge($subscriberData, ['csrf_token' => 'mocked_token']));
+        $request->method = $httpMethod;
+
+        $result = (new \Controller\createSubscribers())->createSubscribers($request);
+
+        if (!empty($result)) {
+            $message = '/' . preg_quote($message, '/') . '/';
+            $this->expectOutputRegex($message);
+            return;
+        }
+
+        $this->assertContains($message, xdebug_get_headers());
+
+        // Очистка после успешного создания
+        if ($httpMethod === 'POST' && $message === 'Location: /createSubscribers') {
+            Subscriber::where('Surname', $subscriberData['Surname'])
+                ->where('Name', $subscriberData['Name'])
+                ->delete();
+        }
+    }
+
+    public static function subscribersProvider(): array
+    {
+        return [
+            ['GET', [], ''], // Просто проверяем отображение формы
+
+            // Тест с пустыми обязательными полями
+            ['POST', [
+                'surname' => '',
+                'name' => ''
+            ], 'Фамилия обязательна для заполнения'],
+
+            // Тест с невалидными данными
+            ['POST', [
+                'surname' => 'Иванов123',
+                'name' => 'Иван'
+            ], 'Фамилия может содержать только буквы'],
+
+            // Успешное создание
+            ['POST', [
+                'surname' => 'Кульменев',
+                'name' => 'Пётр',
+                'surnamesecond' => 'Петрович',
+                'date_of_birth' => '1985-05-15',
+                'image_path' => 'uploads/subscribers/test.jpg'
+            ], 'Location: /createSubscribers'],
         ];
     }
 }

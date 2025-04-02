@@ -84,6 +84,7 @@
     </nav>
 </header>
 <main>
+    <?= print_r($_SESSION) ?>
     <?= $content ?? '' ?>
 </main>
 

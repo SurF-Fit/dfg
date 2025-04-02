@@ -18,7 +18,7 @@ class signup
             if (empty($errors)) {
                 if (User::create($request->all())) {
                     app()->route->redirect('/login');
-                    return '';
+                    return false;
                 }
                 return new View('site.signup', ['message' => HelperResponse::errorMessage('Ошибка при создании пользователя')]);
             }
