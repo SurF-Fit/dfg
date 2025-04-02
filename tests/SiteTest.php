@@ -2,6 +2,7 @@
 
 use Model\User;
 use PHPUnit\Framework\TestCase;
+use Src\Request;
 
 class SiteTest extends TestCase
 {
@@ -30,7 +31,6 @@ class SiteTest extends TestCase
 
     /**
      * @dataProvider additionProvider
-     * * @runInSeparateProcess
      */
     public function testSignup(string $httpMethod, array $userData, string $message): void
     {
@@ -66,14 +66,10 @@ class SiteTest extends TestCase
         $this->assertEquals('/login', $result->getHeader('Location'));
     }
 
-
-//Метод, возвращающий набор тестовых данных
     public static function additionProvider(): array
     {
         return [
-            ['GET', ['name' => '','login' => '', 'password' => ''],
-                ''
-            ],
+            ['GET', ['name' => '','login' => '', 'password' => ''], ''],
             ['POST', [
                 'name' => '',
                 'login' => '',
@@ -91,7 +87,7 @@ class SiteTest extends TestCase
                 'login' => md5(time()),
                 'password' => '23WEsdxc',
                 'csrf_token' => 'mocked_token',
-            ], 'Location: /login']
+            ], 'Location: /login'],
         ];
     }
 }
