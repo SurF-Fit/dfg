@@ -4,7 +4,7 @@ namespace Src;
 
 use Error;
 
-class Request
+    class Request
 {
     protected array $body;
     public string $method;
