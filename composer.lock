@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e7595cdd2003c9231e40f0d91ab11ae",
+    "content-hash": "aae6462046c13ba9d6486aef4742895d",
     "packages": [
         {
             "name": "brick/math",
@@ -2233,12 +2233,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e2cfb09abd266d53f76c4ecd98ff89e8a4c8783a"
+                "reference": "47944cf3de7869eab8b0d7d9c08c3c7695ec33db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e2cfb09abd266d53f76c4ecd98ff89e8a4c8783a",
-                "reference": "e2cfb09abd266d53f76c4ecd98ff89e8a4c8783a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/47944cf3de7869eab8b0d7d9c08c3c7695ec33db",
+                "reference": "47944cf3de7869eab8b0d7d9c08c3c7695ec33db",
                 "shasum": ""
             },
             "require": {
@@ -2326,7 +2326,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-03-28T09:33:57+00:00"
+            "time": "2025-04-01T14:26:13+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -3315,6 +3315,8 @@
     "platform": {
         "php": "^8.1.0"
     },
-    "platform-dev": {},
+    "platform-dev": {
+        "ext-xdebug": "*"
+    },
     "plugin-api-version": "2.6.0"
 }

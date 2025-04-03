@@ -19,9 +19,9 @@
                     <li style="padding: 8px; margin-bottom: 5px; background: #f5f5f5; border-radius: 3px;">
                         <?php if ($attached->subscriber): ?>
                             <strong>
-                                <?= htmlspecialchars($attached->subscriber->Surname) ?>
-                                <?= htmlspecialchars($attached->subscriber->Name) ?>
-                                <?= htmlspecialchars($attached->subscriber->SurnameSecond) ?>
+                                <?= htmlspecialchars($attached->subscriber->surname) ?>
+                                <?= htmlspecialchars($attached->subscriber->name) ?>
+                                <?= htmlspecialchars($attached->subscriber->surnamesecond) ?>
                             </strong>
                         <?php else: ?>
                             <span style="color: #999;">Абонент не указан</span>

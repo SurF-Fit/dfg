@@ -13,9 +13,10 @@ class createSubscribers
 {
     public function createSubscribers(Request $request): string
     {
-        if($_SESSION['role'] == 2) {
+        if ($_SESSION['role'] == 2) {
             if ($request->method === 'POST') {
-                $errors = HelperRequest::validateSubscriber($request->all());
+                $data = $request->all();
+                $errors = HelperRequest::validateSubscriber($data);
 
                 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                     $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -50,10 +51,10 @@ class createSubscribers
                     }
 
                     Subscriber::create([
-                        'surname' => $request->surname,
-                        'name' => $request->name,
-                        'surnamesecond' => $request->surnamesecond,
-                        'date_of_birth' => $request->date_of_birth,
+                        'surname' => $data['surname'],
+                        'name' => $data['name'],
+                        'surnamesecond' => $data['surnamesecond'],
+                        'date_of_birth' => $data['date_of_birth'],
                         'image_path' => $imagePath,
                     ]);
 

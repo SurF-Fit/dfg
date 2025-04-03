@@ -3,8 +3,8 @@
 <?php foreach ($subscribers as $subscriber): ?>
     <div>
         <h3>
-            <?= $subscriber->Surname ?>
-            <?= $subscriber->Name ?>
+            <?= $subscriber->surname ?>
+            <?= $subscriber->name ?>
         </h3>
 
         <p><strong>Дата рождения:</strong>

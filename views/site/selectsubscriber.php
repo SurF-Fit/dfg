@@ -7,7 +7,7 @@
             <?php else: ?>
                 <img style="max-width: 200px; border: 1px solid black" src="/public/img/utya-utya-duck.gif" alt="Заглушка">
             <?php endif; ?>
-            <?= $sub->Surname ?> <?= $sub->Name ?> <?= $sub->SurnameSecond ?> ( <?= date('d.m.Y', strtotime($sub->Date_of_birth)) ?> )
+            <?= $sub->surname ?> <?= $sub->name ?> <?= $sub->surnamesecond ?> ( <?= date('d.m.Y', strtotime($sub->Date_of_birth)) ?> )
         </li>
     <?php endforeach; ?>
 </ol>
