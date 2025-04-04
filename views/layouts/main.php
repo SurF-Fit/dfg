@@ -84,6 +84,7 @@
     </nav>
 </header>
 <main>
+    <?= print_r(time()) ?>
     <?= $content ?? '' ?>
 </main>
 
