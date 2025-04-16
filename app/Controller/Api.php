@@ -13,15 +13,14 @@ class Api
 
     private function validateToken($token): bool
     {
-        if (!isset($this->tokens[$token])) {
-            return false;
-        }
 
-        if ($this->tokens[$token]['expires_at'] < time()) {
-            unset($this->tokens[$token]);
-            return false;
+        if (isset($this->tokens['token'])) {
+                if ($this->tokens['expires_at'] <= time()){
+                    unset($this->tokens);
+                    return false;
+                }
+                return false;
         }
-
         return true;
     }
 
@@ -45,19 +44,23 @@ class Api
         }
 
 
-        $token = bin2hex(random_bytes(16));
-        $this->tokens[$token] = [
-            'user_id' => $user->id,
-            'expires_at' => time() + $this->tokenExpiration
-        ];
+        $this->tokens['token'] = bin2hex(random_bytes(16));
+        $this->tokens['expires_at'] =
+            time() + $this->tokenExpiration
+        ;
 
-        (new View())->toJSON(['token' => $token]);
+        (new View())->toJSON(['token' => $this->tokens['token'], 'current' => time(), 'expires_at' => $this->tokens['expires_at']]);
     }
 
     public function index(Request $request): void
     {
         if (!$this->validateToken($request->headers['Authorization'] ?? '')) {
             (new View())->toJSON(['error' => 'Неверный или истекший токен.'], 401);
+            return;
+        }
+
+        if(!isset($request->headers['Authorization'])){
+            (new View())->toJSON(['error' => 'Введите токен.'], 401);
             return;
         }
 
@@ -69,6 +72,11 @@ class Api
     {
         if (!$this->validateToken($request->headers['Authorization'] ?? '')) {
             (new View())->toJSON(['error' => 'Неверный или истекший токен.'], 401);
+            return;
+        }
+
+        if(!isset($request->headers['Authorization'])){
+            (new View())->toJSON(['error' => 'Введите токен.'], 401);
             return;
         }
 

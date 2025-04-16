@@ -4,6 +4,7 @@ namespace Src\Auth;
 
 use Model\User;
 use Src\Session;
+use Controller\Api;
 
 class Auth
 {
